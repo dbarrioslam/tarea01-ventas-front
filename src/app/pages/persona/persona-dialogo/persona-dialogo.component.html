@@ -1,0 +1,10 @@
+<div>
+    <mat-form-field>
+        <input matInput placeholder="Nombres" [(ngModel)]="persona.nombres">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Apellidos" [(ngModel)]="persona.apellidos">
+    </mat-form-field>
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>

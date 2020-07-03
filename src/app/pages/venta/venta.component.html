@@ -1,0 +1,56 @@
+<mat-toolbar>Registro de Venta</mat-toolbar>
+
+
+<div class="example-container">
+    <mat-form-field>
+        <mat-select placeholder="Selecciona persona" [(value)]="idPersonaSeleccionada">
+            <mat-option *ngFor="let p of (personas$ | async)" [value]="p.idPersona">
+                {{ p.nombres }} {{ p.apellidos }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Escoge una fecha" [max]="maxFecha"
+            [(ngModel)]="fechaSeleccionada">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Importe" [(ngModel)]="importe">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Selecciona producto" [(value)]="idProductoSeleccionado">
+            <mat-option *ngFor="let p of (productos$ | async)" [value]="p.idProducto">
+                {{ p.nombre }} - {{ p.marca }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput placeholder="Cantidad" [(ngModel)]="cantidad"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="agregar()">Agregar Detalle</button>
+
+    <mat-expansion-panel *ngFor="let d of detalleVenta; let i=index">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{ i + 1 }} {{d.producto.nombre}} - {{ d.producto.marca }}
+            </mat-panel-title>
+            <mat-panel-description>
+                Ver Cantidad
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+            <textarea matInput placeholder="Cantidad" value="{{d.cantidad}}"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="warn" (click)="removerDiagnostico(i)">Remover</button>
+    </mat-expansion-panel>
+
+    <button mat-raised-button color="primary" (click)="aceptar()" [disabled]="estadoBotonRegistrar()">Registrar</button>
+
+</div>
